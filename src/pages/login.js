@@ -19,7 +19,6 @@ const Login = () => {
   console.log(users);
 
   const Login = (details) => {
-    console.log(details);
     const isUser = users.find(
       (user) =>
         user.email === details.email && user.password === details.password
@@ -36,31 +35,12 @@ const Login = () => {
     } 
     else {
       console.log("Tidak Berhasil Login");
-      setError("Tidak Berhasil Login");
+      setError("Email atau Password salah.");
     }
   };
 
-  // const Logout = () => {
-  //   setUser({ name: "", email: "" });
-  //   setError("");
-  // };
-
-  // const goToHome = () => {
-  //   navigate("/home");
-  // };
-
   return (
     <div className="Login">
-      {/* {user.email !== "" ? (
-        <div className="welcome">
-          <h1>
-            Welcome, <span>{user.name}</span>
-          </h1>
-          <button onClick={goToHome}>Logout</button>
-        </div>
-      ) : (
-        <LoginForm Login={Login} error={error} />
-      )} */}
       <LoginForm Login={Login} error={error} />
     </div>
   );

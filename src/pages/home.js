@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
+import AdminProduct from "../components/AdminProduct";
 import Categories from "../components/Categories";
 import Display from "../components/Display";
 import Navbar from "../components/Navbar";
@@ -9,6 +10,20 @@ const Home = () => {
   const { categories } = useSelector(
     (state) => state.persistedReducer.categories
   );
+
+  if (localStorage.getItem("token") === "isAdmin") {
+    return (
+      <div>
+        <Navbar />
+        <div style={{display: "flex", flexWrap: "wrap"}}>
+        {products.map((product) => (
+          <AdminProduct product={product} key={product.id} />
+        ))}
+        </div>
+        
+      </div>
+    );
+  }
 
   return (
     <div>

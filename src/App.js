@@ -8,6 +8,7 @@ import Login from "./pages/login";
 import Cart from "./pages/cart";
 import { fetchUsers } from "./features/users/usersSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Sales from "./pages/sales";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/sales"
+          element={
+            <ProtectedRoute>
+              <Sales />
             </ProtectedRoute>
           }
         />
