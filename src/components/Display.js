@@ -3,23 +3,15 @@ import ProductContainer from "./ProductContainer";
 
 const Display = ({ products }) => {
   return (
-    <div style={styles.display}>
-      {products.map((product) => (
-        <ProductContainer product={product} key={product.id} />
-      ))}
+    <div className="container my-4 py-4">
+      <div className="row">
+        {products.map((product) => (
+          <ProductContainer product={product} key={product.id} />
+        ))}
+      </div>
       <Outlet />
     </div>
   );
-};
-
-const styles = {
-  display: {
-    backgroundColor: "grey",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
-  },
 };
 
 export default Display;

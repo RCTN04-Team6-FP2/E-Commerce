@@ -50,7 +50,7 @@ const productsSlice = createSlice({
         return { ...state, loading: true };
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        if (state.length) {
+        if (state.products.length === 0) {
           const products = action.payload.map((product) => {
             return { ...product, qty: 20, sold: 0 };
           });

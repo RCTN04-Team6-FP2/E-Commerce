@@ -1,45 +1,24 @@
-import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import { useDispatch } from "react-redux";
-import { deleteCart, updateCart } from "../features/carts/cartsSlice";
+import { useCounter } from "../hooks/Counter.hook";
 
 const Counter = ({ buyQty, maxQty, cart }) => {
-  const [counter, setCounter] = useState(buyQty);
-  const [message, setMessage] = useState("");
-
-  const dispatch = useDispatch();
-
-  const handleClickPlus = () => {
-    setCounter(Number(counter) + 1);
-  };
-
-  const handleClickMin = () => {
-    setCounter(Number(counter) - 1);
-  };
-
-  const handleMessage = () => {
-    if (counter < 1) {
-      setMessage("Minimal pembelian produk ini adalah 1 ");
-      setCounter(1);
-    } else if (counter > maxQty) {
-      setMessage("Quantity pembelian sudah melebihi stock");
-      setCounter(maxQty);
-    } else if (1 < counter && counter < maxQty) {
-      setMessage("");
-    }
-  };
-
-  useEffect(() => {
-    handleMessage();
-    dispatch(updateCart({ cart, counter }));
-  }, [counter]);
+  const {
+    counter,
+    setCounter,
+    message,
+    handleClickPlus,
+    handleClickMin,
+    handleMessage,
+  } = useCounter({ buyQty, maxQty, cart });
 
   return (
     <div>
       <div style={styles.container}>
-        <Button style={styles.btn} onClick={() => handleClickMin()}>
-          -
-        </Button>
+        <button
+          className="btn btn-outline-dark"
+          onClick={() => handleClickMin()}
+        >
+          <i className="fa fa-minus"></i>
+        </button>
         <input
           type="number"
           value={counter}
@@ -49,12 +28,14 @@ const Counter = ({ buyQty, maxQty, cart }) => {
           }}
           style={styles.counter}
         ></input>
-        <Button style={styles.btn} onClick={() => handleClickPlus()}>
-          +
-        </Button>
-        <button onClick={() => dispatch(deleteCart(cart))}>Delete</button>
+        <button
+          className="btn btn-outline-dark"
+          onClick={() => handleClickPlus()}
+        >
+          <i className="fa fa-plus"></i>
+        </button>
       </div>
-      <div>{message}</div>
+      <div style={styles.message}>{message}</div>
     </div>
   );
 };
@@ -63,13 +44,17 @@ const styles = {
   container: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
   },
-  btn: {},
   counter: {
     fontSize: 25,
     width: 100,
     borderBottom: "1px solid black",
     textAlign: "center",
+  },
+  message: {
+    fontSize: 15,
+    color: "red",
   },
 };
 

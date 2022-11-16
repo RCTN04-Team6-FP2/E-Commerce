@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 body {
   overflow-y: scroll;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  background-color: #EFF5F5;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.nav-item:hover {
+  text-decoration: underline;
 }

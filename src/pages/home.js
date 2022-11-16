@@ -6,21 +6,22 @@ import Display from "../components/Display";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
-  const { products } = useSelector((state) => state.persistedReducer.products);
   const { categories } = useSelector(
     (state) => state.persistedReducer.categories
   );
+  const { products } = useSelector((state) => state.persistedReducer.products);
 
   if (localStorage.getItem("token") === "isAdmin") {
     return (
       <div>
         <Navbar />
-        <div style={{display: "flex", flexWrap: "wrap"}}>
-        {products.map((product) => (
-          <AdminProduct product={product} key={product.id} />
-        ))}
+        <div className="container my-4 py-4">
+          <div className="row">
+            {products.map((product) => (
+              <AdminProduct product={product} key={product.id} />
+            ))}
+          </div>
         </div>
-        
       </div>
     );
   }

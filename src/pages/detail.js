@@ -1,63 +1,44 @@
-import { useState, useEffect } from "react";
-import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import { useDispatch } from "react-redux";
-import Counter from "../components/Counter";
 import { addCart } from "../features/carts/cartsSlice";
 import swal from "sweetalert";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
-  // const [message, setMessage] = useState("");
-
-  // const handleClickPlus = () => {
-  //   setCounter(Number(counter) + 1);
-  // };
-
-  // const handleClickMin = () => {
-  //   setCounter(Number(counter) - 1);
-  // };
-
-  // const handleMessage = () => {
-  //   if (counter < 1) {
-  //     setMessage("Minimal pembelian produk ini adalah 1 ");
-  //     setCounter(1);
-  //   } else if (counter > props.product.qty) {
-  //     setMessage("Qty pembelian sudah melebihi stock");
-  //     setCounter(20);
-  //   }
-  //   else if (1 < counter && counter < props.product.qty) {
-  //     setMessage("");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleMessage();
-  // }, [counter]);
 
   return (
     <Modal
       {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
+      size="xl"
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="contained-modal-title-vcenter" className="fs-3">
           {props.product.title}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body style={styles.content}>
-        <img src={`${props.product.image}`} alt="" style={styles.img} />
-        <div style={styles.detail}>
-          <p>{props.product.description}</p>
-          <p>Price: ${props.product.price}</p>
-          <p>Category: {props.product.category}</p>
-          <p>Stock: {props.product.qty}</p>
+      <Modal.Body className="d-flex align-items-center">
+        <div className="mx-5">
+          <img
+            src={props.product.image}
+            alt={props.product.title}
+            height="300px"
+            width="300px"
+          />
+        </div>
+        <div className="mx-5">
+          <h4 className="text-uppercase text-black-50 mb-3">{props.product.category}</h4>
+          <p className="lead fw-bolder">
+            Rating {props.product.rating.rate}
+            <i className="fa fa-star"></i> ({props.product.rating.count})
+          </p>
+          <h3 className="display-6 fw-bold mb-3">$ {props.product.price}</h3>
+          <p className="lead">{props.product.description}</p>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button
+        <div className="fs-5 fw-bolder mx-3">Stock: {props.product.qty}</div>
+        <button className="btn btn-outline-dark"
           onClick={() => {
             if (props.product.qty !== 0) {
               dispatch(addCart({ ...props.product }));
@@ -79,38 +60,10 @@ const Detail = (props) => {
           }}
         >
           Add to Cart
-        </Button>
+        </button>
       </Modal.Footer>
     </Modal>
   );
-};
-
-const styles = {
-  content: {
-    display: "flex",
-    padding: "3%",
-    alignItems: "center",
-  },
-  img: {
-    width: 300,
-    height: 300,
-    margin: "0 5% 0 0",
-  },
-  detail: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  container: {
-    display: "flex",
-    alignItems: "center",
-  },
-  btn: {},
-  counter: {
-    fontSize: 25,
-    width: 100,
-    borderBottom: "1px solid black",
-    textAlign: "center",
-  },
 };
 
 export default Detail;

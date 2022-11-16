@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import Detail from "../pages/detail";
 
 const ProductContainer = ({ product }) => {
@@ -9,78 +7,42 @@ const ProductContainer = ({ product }) => {
   const navigate = useNavigate();
 
   return (
-    <Card style={styles.card}>
-      <Card.Img variant="top" src={product.image} style={styles.img} />
-      <Card.Body style={styles.content}>
-        <div style={styles.text}>
-          <Card.Title style={styles.title}>{product.title}</Card.Title>
-          <Card.Text style={styles.desc}>{product.category}</Card.Text>
-          <Card.Text style={styles.desc}>{product.price}</Card.Text>
+    <div className="col-md-3 mb-4">
+      <div className="card h-100 p-4" key={product.id}>
+        <img
+          src={product.image}
+          className="card-img-top"
+          alt={product.title}
+          height="250px"
+        />
+        <div className="card-body p-0 pt-3 d-flex flex-column">
+          <div className="d-flex flex-row justify-content-between">
+            <p className="card-text fs-5 mb-1">
+              {product.rating.rate} <i className="fa fa-star" /> (
+              {product.rating.count})
+            </p>
+            <p className="card-text lead mb-2">${product.price}</p>
+          </div>
+
+          <button
+            className="btn btn-outline-dark w-100"
+            onClick={() => {
+              if (localStorage.getItem("token") === "isUser") {
+                setModalShow(true);
+              } else navigate("/login");
+            }}
+          >
+            Detail
+          </button>
         </div>
-        <Button
-          variant={"outline-secondary"}
-          style={styles.btnDetail}
-          onClick={() => {
-            if (localStorage.getItem("token") === "isUser") {
-              setModalShow(true);
-            }
-            else (
-              navigate("/login")
-            )           
-          }}
-        >
-          Detail
-        </Button>
-      </Card.Body>
+      </div>
       <Detail
         show={modalShow}
         onHide={() => setModalShow(false)}
         product={product}
       />
-    </Card>
+    </div>
   );
-};
-
-const styles = {
-  card: {
-    display: "flex",
-    width: "20%",
-    height: "90%",
-    margin: "1%",
-    textAlign: "left",
-    borderRadius: 20,
-    boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px",
-    fontFamily: "'Poppins', sans-serif",
-  },
-  img: {
-    width: "50%",
-    height: 150,
-    margin: "5% 5% 0",
-  },
-  content: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  text: {
-    flex: 1,
-  },
-  source: {
-    marginTop: 0,
-    fontSize: 14,
-    margin: "0 2%",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    margin: "2%",
-  },
-  desc: {
-    margin: "2%",
-  },
-  btnDetail: {
-    alignSelf: "flex-end",
-    width: "100%",
-  },
 };
 
 export default ProductContainer;

@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function LoginForm({ Login, error }) {
   const [details, setDetails] = useState({ email: "", password: "" });
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     Login(details);
   };
+
   return (
     <form onSubmit={submitHandler}>
       <div className="form-inner">
         <h2>Form Login</h2>
-        {error !== "" ? <div className="error">{error}</div> : ""}
         <div className="form-group">
           <label htmlFor="email">Email :</label>
           <input
@@ -35,7 +34,7 @@ function LoginForm({ Login, error }) {
             value={details.password}
           />
         </div>
-
+        {error !== "" ? <div className="error">{error}</div> : ""}
         <input type="submit" value="LOGIN" />
       </div>
     </form>

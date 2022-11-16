@@ -7,8 +7,9 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Cart from "./pages/cart";
 import { fetchUsers } from "./features/users/usersSlice";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRouteCart from "./components/ProtectedRouteCart";
 import Sales from "./pages/sales";
+import ProtectedRouteSales from "./components/ProtectedRouteSales";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,17 +32,17 @@ function App() {
         <Route
           path="/cart"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteCart>
               <Cart />
-            </ProtectedRoute>
+            </ProtectedRouteCart>
           }
         />
         <Route
           path="/sales"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteSales>
               <Sales />
-            </ProtectedRoute>
+            </ProtectedRouteSales>
           }
         />
         <Route path="/login" element={<Login />} />
