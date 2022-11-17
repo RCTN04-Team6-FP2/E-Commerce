@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Detail from "../pages/detail";
 
-const ProductContainer = ({ product }) => {
+const UserProduct = ({ product }) => {
   const [modalShow, setModalShow] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <div className="col-md-3 mb-4">
@@ -23,13 +21,10 @@ const ProductContainer = ({ product }) => {
             </p>
             <p className="card-text lead mb-2">${product.price}</p>
           </div>
-
           <button
             className="btn btn-outline-dark w-100"
             onClick={() => {
-              if (localStorage.getItem("token") === "isUser") {
-                setModalShow(true);
-              } else navigate("/login");
+              setModalShow(true);
             }}
           >
             Detail
@@ -45,4 +40,4 @@ const ProductContainer = ({ product }) => {
   );
 };
 
-export default ProductContainer;
+export default UserProduct;

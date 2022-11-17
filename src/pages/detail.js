@@ -2,16 +2,14 @@ import Modal from "react-bootstrap/Modal";
 import { useDispatch } from "react-redux";
 import { addCart } from "../features/carts/cartsSlice";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
-    <Modal
-      {...props}
-      size="xl"
-      centered
-    >
+    <Modal {...props} size="xl" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter" className="fs-3">
           {props.product.title}
@@ -27,7 +25,9 @@ const Detail = (props) => {
           />
         </div>
         <div className="mx-5">
-          <h4 className="text-uppercase text-black-50 mb-3">{props.product.category}</h4>
+          <h4 className="text-uppercase text-black-50 mb-3">
+            {props.product.category}
+          </h4>
           <p className="lead fw-bolder">
             Rating {props.product.rating.rate}
             <i className="fa fa-star"></i> ({props.product.rating.count})
@@ -38,24 +38,29 @@ const Detail = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <div className="fs-5 fw-bolder mx-3">Stock: {props.product.qty}</div>
-        <button className="btn btn-outline-dark"
+        <button
+          className="btn btn-outline-dark"
           onClick={() => {
-            if (props.product.qty !== 0) {
-              dispatch(addCart({ ...props.product }));
-              props.onHide();
-              swal({
-                text: "Success Added to Cart!",
-                icon: "success",
-                button: false,
-                timer: 1500,
-              });
+            if (localStorage.getItem("token") === "isUser") {
+              if (props.product.qty !== 0) {
+                dispatch(addCart({ ...props.product }));
+                props.onHide();
+                swal({
+                  text: "Success Added to Cart!",
+                  icon: "success",
+                  button: false,
+                  timer: 1500,
+                });
+              } else {
+                swal({
+                  text: "Out of Stock!",
+                  icon: "error",
+                  button: false,
+                  timer: 1500,
+                });
+              }
             } else {
-              swal({
-                text: "Out of Stock!",
-                icon: "error",
-                button: false,
-                timer: 1500,
-              });
+              navigate("/login");
             }
           }}
         >
