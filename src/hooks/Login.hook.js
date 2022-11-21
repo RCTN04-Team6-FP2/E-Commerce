@@ -23,11 +23,11 @@ export const useLogin = () => {
     if (isUser) {
       console.log("Berhasil Login User");
       localStorage.setItem("token", "isUser");
-      navigate("/home");
+      navigate("/");
     } else if (isAdmin) {
       console.log("Berhasil Login Admin");
       localStorage.setItem("token", "isAdmin");
-      navigate("/home");
+      navigate("/");
     } 
     else {
       console.log("Tidak Berhasil Login");

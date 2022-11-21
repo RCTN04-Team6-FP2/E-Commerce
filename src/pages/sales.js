@@ -11,7 +11,12 @@ const Sales = () => {
   const soldProducts = products.filter((product) => product.sold > 0);
 
   if (!soldProducts.length) {
-    return <HandleNothing img={nothingHere} />;
+    return (
+      <div>
+        <Navbar />
+        <HandleNothing img={nothingHere} />
+      </div>
+    );
   }
   return (
     <div>
@@ -27,12 +32,10 @@ const Sales = () => {
             </tr>
           </thead>
           <tbody>
-          {soldProducts.map((sale) => {
-              return (
-                <SalesDetail sale={sale} />
-              );
+            {soldProducts.map((sale) => {
+              return <SalesDetail sale={sale} key={sale.id} />;
             })}
-            <SalesFooter soldProducts={soldProducts}/>
+            <SalesFooter soldProducts={soldProducts} />
           </tbody>
         </Table>
       </div>

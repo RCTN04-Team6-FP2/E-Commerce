@@ -10,7 +10,12 @@ const Cart = () => {
   const { carts } = useSelector((state) => state.persistedReducer.carts);
 
   if (!carts.length) {
-    return <HandleNothing img={emptyCart} />;
+    return (
+      <div>
+        <Navbar />
+        <HandleNothing img={emptyCart} />
+      </div>
+    );
   }
   return (
     <div>

@@ -1,7 +1,22 @@
-import { Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import HandleNothing from "./HandleNothing";
 import UserProduct from "./UserProduct";
+import nothingDisplay from "../utils/imgs/nothing-display.svg"
 
 const Display = ({ products }) => {
+  let params = useParams();
+
+  if (params.productCategory) {
+    const categoryProduct = products.filter(
+      (product) => product.category === params.productCategory
+    );
+    products = categoryProduct;
+  }
+
+  if (!products.length) {
+    return <HandleNothing img={nothingDisplay}/>
+  }
+
   return (
     <div className="container my-4 py-4">
       <div className="row">
@@ -9,7 +24,6 @@ const Display = ({ products }) => {
           <UserProduct product={product} key={product.id} />
         ))}
       </div>
-      <Outlet />
     </div>
   );
 };
